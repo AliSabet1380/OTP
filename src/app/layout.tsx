@@ -1,16 +1,10 @@
+import { Toaster } from "sonner";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { QueryProvider } from "@/provider/query-provider";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,10 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        <Toaster expand position={"top-right"} />
+        <NuqsAdapter>
+          <QueryProvider>{children}</QueryProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
